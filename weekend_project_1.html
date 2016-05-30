@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <h1>Employee Data and Salary Information</h1>
+    <h1>Employee Data and Salary Information Input</h1>
 
       <form id="employeeInput">
       First Name:<input type="text" id="nameFirst" value=""><br>
@@ -18,22 +18,25 @@
       Yearly Salary:<input type="text" id="salaryYearly" value=""><br><br>
       </form>
 
-    <button type="button" name="button" onclick="employeeInfo();"> Submit </button><br><br>
+    <button type="button" name="button" onclick="employeeInfo();"> Submit </button><br>
 
     <h2>Employee Removal and Salary Adjustment</h2>
 
       <form id="employeeRemove">
-      First Name:<input type="text" id="firstDelete" value="">
-      Last Name:<input type="text" id="lastDelete" value=""><br><br>
+      <p>Enter an Employee's ID number to remove that employee</p>
+      Employee ID#:<input type="number" id="employeeDelete" value=""><br><br>
       </form>
 
-    <button type="button" name="button" onclick="deleteEmployee();"> Delete Employee </button><br>
+    <button type="button" name="button" onclick="deleteEmployee();"> Delete Employee </button><br><br>
+
+    <div id="outputLineThree"></div>
 
     <h2>Employee Data</h2>
 
     <div id="outputLineOne"></div>
     <div id="outputLineTwo"></div>
-    <div id="outputLineThree"></div>
+    <div id="outputLineFour"></div>
+
 
   </body>
 </html>

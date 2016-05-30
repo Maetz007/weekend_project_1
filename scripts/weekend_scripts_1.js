@@ -2,6 +2,7 @@ var employeeTable = [];  // creates an empty array for our main function
 var monthlySalary = 0;   // create a variable to hold the monthly avg
 var employeeList = [];   // create a place holder array
 var totalSalary = 0;     // Holds total salary for use later
+var employeeOutputTotal = [];
 
 var employeeInfo = function (){
 
@@ -22,7 +23,6 @@ var employeeInfo = function (){
   };
 
   employeeTable.push(employeeObject); // fills the employee object
-  employeeList = employeeTable; // fills the place holder employee array to be used later
   employeeOuputInfo();
   calcMonthlySalary();
   clearForm("employeeInput"); // empties the user input fields
@@ -32,12 +32,18 @@ var employeeInfo = function (){
 var employeeOuputInfo = function(){
   for (var i = 0; i < employeeTable.length; i++) {
     document.getElementById('outputLineOne').innerHTML = ""; // clears the location of any inputs within the named div
+    document.getElementById('outputLineFour').innerHTML = "";
 
-    var employeeOutput = 'Information for: ' + employeeTable[i].nameF + ' ' +
+    var employeeOutputLast = 'Last employee inputed: ' + employeeTable[i].nameF + ' ' +
       employeeTable[i].nameL + '--  Employee ID Number #' + employeeTable[i].idNum + '. Job Title- ' +
       '"' + employeeTable[i].jobTi + '."' + ' Yearly salary = $' + employeeTable[i].yrSal;
 
-    document.getElementById('outputLineOne').innerHTML += "<p>" + employeeOutput + "</p>"; // returns array info to named div
+    employeeOutputTotal = employeeOutputTotal + 'Name: ' + employeeTable[i].nameF + ' ' + employeeTable[i].nameL + ' Id: #' +
+      employeeTable[i].idNum + ' Job: ' + employeeTable[i].jobTi + ' Salary: $' + employeeTable[i].yrSal + "<br>";
+
+
+    document.getElementById('outputLineOne').innerHTML += "<p>" + employeeOutputLast + "</p>"; // returns array info to named div
+    document.getElementById('outputLineFour').innerHTML = "<p>" + employeeOutputTotal + "</p>";
   }
 };
 
@@ -54,12 +60,12 @@ var calcMonthlySalary = function(){
 
 // looks for an employee by first and last name to delete, including the adjusted salary amount of that employee
 var deleteEmployee = function(){
+  var removeEmployee = document.getElementById("employeeDelete").value;
+  employeeList = employeeTable;
   for (var i = 0; i < employeeList.length; i++) {
-    var nameFirstDelete = document.getElementById("firstDelete").value;
-    var nameLastDelete = document.getElementById("lastDelete").value;
 
-    if (employeeTable[i].nameF == nameFirstDelete && employeeTable[i].nameL == nameLastDelete){ // looks to match both fist AND last name
-      var monthlySalaryDelete = employeeTable[i].yrSal / 12;
+    if (employeeList[i].idNum == removeEmployee){ // looks to match ID# to remove employee
+      var monthlySalaryDelete = employeeList[i].yrSal / 12;
       monthlySalary = monthlySalary - monthlySalaryDelete; // subtracts from the global monthly salary
       totalSalary = totalSalary - monthlySalary; // updates the global total salary with adjusted monthly
 
@@ -70,7 +76,7 @@ var deleteEmployee = function(){
       document.getElementById('outputLineThree').innerHTML += "Amount deducted from monthly salary: " +
         monthlySalaryDelete.toLocaleString("en-US", {style: 'currency', currency: 'USD'});
 
-      employeeList.slice(i, 1); // removes one object at i location in the array and returns new array
+      employeeList.splice(i, 1); // removes one object at i location in the array and returns new array
       employeeTable = employeeList; // updates the global employee array
       clearForm("employeeRemove"); // empties the user input fields
     }
